@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CRM Web</title>
+</head>
+<body>
+<h1>WELCOME CRM WEB !!!!</h1><hr />
+<h2>Nuevo producto</h2>
+
+<hr />
+<br />
+<form method="post" action= "http://localhost:8080/productos/guardar">
+    <input type="text" placeholder="codigo_producto" name="codigo_producto"/> <br /><br />
+    <input type="text" placeholder="categoria" name="categoria"/> <br /><br />
+    <input type="text" placeholder="nombre" name="nombre"/> <br /><br />
+    <input type="text" placeholder="descripcion" name="descripcion"/> <br /><br />
+    <input type="number" placeholder="precio_unitario" name="precio_unitario"/> <br /><br />
+    <input type="number" placeholder="stock" name="stock"/> <br /><br />
+    <button type="submit">Guardar </button>
+</form>
+</body>
+</html>
