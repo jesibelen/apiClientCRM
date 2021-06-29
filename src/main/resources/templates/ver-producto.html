@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>CRMVentas Web: Ver producto</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+<h1>Producto <i th:text="${producto.id_producto}" /> </h1>
+<p th:text="'Codigo: ' + ${producto.codigo_producto}" />
+<p th:text="'Categoria: ' + ${producto.categoria}" />
+<p th:text="'Nombre: ' + ${producto.nombre}" />
+<p th:text="'Descripcion: ' + ${producto.descripcion}" />
+<p th:text="'Precio Unitario: ' + ${producto.precio_unitario}" />
+<p th:text="'Stock: ' + ${producto.stock}" />
+<a href="/nuevo-producto">Crear otro</a> - <a href="/productos">Ver productos </a>
+</body>
+</html>

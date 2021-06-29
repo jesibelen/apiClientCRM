@@ -13,16 +13,26 @@ import java.util.List;
 public class ProductoController {
     /*
     Cuando hago un @restcontroller estoy haciendo por un lado un controlador, o sea va mapear direcciones o path
-    dentro de mi proyecto y lo va a tomar con get y post y la salida (return) de los metoddos sera el cuerpo de la respuesta
+    dentro de mi proyecto y lo va a tomar con get y post y por el otro lado hara un @ResponseBody, esto lo que hace
+    es definir la vista del controlador de modo automatico o sea nuestra salida(return) sera segun lo que yo escriba o envie.
 
-    La diferencia con un @Controller es que cuando se mapea se necesitara un template
+    #################   @RestController hace (@Controller + @ResponseBody)  ########
+
+    La diferencia con un @Controller es que cuando se mapea, este necesitara un template
     resources -> templates -> una-prueba.html
 
     -ESTE CONTROLADOR QUE RESPONDEN LAS SOLICITUDES ES UNA IDEA DE MICROSERVICIO, TENGO PEQUENIOS  MICROSERVICIOS,
     EN ESTE CASO TENGO UNO DEDICADO A PRODUCTOS QUE RESPONDEN SOLICITUDES EXTERNAS O INTERNAS Y GESTIONAR DE FORMA ATOMICA
     ALL lo que tenga relacion a productos
 
-    El controlador es el que interactua con el usuario y usa al servicio para acceder al modelo (MVC), mostrar o cambiarlo
+    El controlador es el que interactua con el usuario y usa al servicio para acceder al modelo (MVC), mostrar o cambiarlo.
+
+    Para usar Front se necesita usar @Controller y agregar en mi pom.xml lo siguiente:
+            <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
      */
 
     private final ProductoService productoService;
@@ -52,13 +62,24 @@ public class ProductoController {
         return "guardar-producto";
     }
 
-    @PostMapping("nuevo-productor")
+    @PostMapping("nuevo-producto")
     public String nuevoProductoSubmit(@ModelAttribute ProductoEntity producto, Model modelo){
         modelo.addAttribute("producto", producto);
         productoService.saveProduct(producto);
         return "ver-producto";
     }
     /* ************************************************************************************** */
+    @GetMapping("pruebaDos/{nombre}")
+    public String pruebadDos(Model modelo, @PathVariable String nombre){
+        modelo.addAttribute("petName", nombre);
+        return "prueba-dos";
+    }
+    /*@GetMapping("pruebaDos")
+    public String pruebaDos(Model modelo){
+        modelo.addAttribute("bisonteVolador", "appa");
+        return "prueba-dos";
+    }*/
+
     @PostMapping("productos/guardarDificil")
     public String guardarProductosGet(
             @RequestParam String codigo_producto,
@@ -75,13 +96,18 @@ public class ProductoController {
     @GetMapping("unaPrueba")
     public String unaPrueba(){
         return "una-prueba";
-        //no funciona con @Controller si no tiene un templete (en resources) que se llame igual al string de salida
+        //no funcionara con @Controller si no tiene un templete (en resources) que se llame igual al string de salida
+        /*Este modo de mostrar una vista es mucho mejor ya que el desacoplamiento es debil (no necesito saber como esta
+         hecho el FRONT)*/
     }
+
+
     /* ********Combinacion de html lindo y back ***************
     @GetMapping("holamundo")
     public String unMetodoCualquiera(){
         return "<i style = 'color:red'>hola</i> <b>mundo<b/>";
     }
+    Utilizar este modo es complidado/ desacoplamiento fuerte
      ************************************************
     url es el LOCALIZADOR DE RECURSOS EN LA RED
     path es el "camino" desde el dominio hasta el recurso
